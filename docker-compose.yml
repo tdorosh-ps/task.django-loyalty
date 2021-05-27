@@ -1,0 +1,63 @@
+version: "3.7"
+   
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile.db
+    ports:
+      - "5432:5432"
+    env_file:
+      - config/.env
+    volumes:
+      - ./db_data/:/sql
+
+  django:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/loyalty
+    ports:
+      - "8000:8000"
+    env_file:
+      - config/.env
+    depends_on:
+      - postgres
+     
+  rabbitmq:
+    image: rabbitmq:3.8.16
+
+  celery:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+    command: celery -A config.celery worker -l INFO
+    restart: on-failure
+    volumes:
+      - .:/loyalty
+    depends_on:
+      - postgres
+      - rabbitmq
+      
+  celerybeat:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+    command: celery -A config.celery beat -l INFO
+    restart: on-failure
+    volumes:
+      - .:/loyalty
+    depends_on:
+      - celery
+      
+  clickhouse-server:
+    image: yandex/clickhouse-server:21.3.12.2
+    env_file:
+      - config/.env
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+

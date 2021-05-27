@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "931420ad-fc5a-4449-a7f6-3f505a8e8337",
+		"name": "loyalty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get oauth token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic WkRtUWFETjhuRDMzb2R6VXpZdEt2ZjljdGpZS2F6ZFpiNXdCMk5DVDp2NXROVGdtVDhSMkh1eVRQRWdQM1RQeTBoT3JZb3c2cVNrbWFxSGM1N2ZkcllzcWg1eVdhN3lzWFBjTGhpZmtFSVZRRk00a1VqT2t5bk5yS0c2cWN2RXNWWk5OU1lndzRLeWU2Z2tFb0d6dGpzaWZSMVJFSU80YXNLRTZENmkzQQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/v1/o/token/",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"o",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get customer balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Z5jzxg4WV0ZiTb1iadut0glmWkMuTY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/api/v1/accounts/get/1/1/",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"accounts",
+						"get",
+						"1",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "increase customer balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Z5jzxg4WV0ZiTb1iadut0glmWkMuTY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/v1/accounts/increase/1/1/",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"accounts",
+						"increase",
+						"1",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "decrease customer balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Z5jzxg4WV0ZiTb1iadut0glmWkMuTY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/v1/accounts/decrease/1/1/",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"accounts",
+						"decrease",
+						"1",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "0.0.0.0"
+		},
+		{
+			"key": "port",
+			"value": "8000"
+		}
+	]
+}

@@ -1,0 +1,5 @@
+*.pyc
+.idea/
+celerybeat-schedule
+celerybeat.pid
+__pycache__/
